@@ -29,4 +29,19 @@ public class StudentController {
     public void registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
     }
+
+
+    // example path for DELETE would be:
+    @DeleteMapping("/delete/{studentId}")
+    public void deleteStudent(@PathVariable Long studentId){
+        studentService.deleteStudent(studentId);
+    }
+
+    @PutMapping("/update/{studentId}")
+    public void updateStudent(@PathVariable Long studentId,
+                              @RequestParam(required = false) String name,
+                              @RequestParam(required = false) String email) {
+
+        studentService.updateStudent(studentId, name, email);
+    }
 }
