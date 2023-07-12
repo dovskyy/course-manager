@@ -1,6 +1,6 @@
 package pl.dovskyy.studentmanager.model;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +10,7 @@ import java.time.Period;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,14 +19,6 @@ public class Student {
     private String email;
     private LocalDate dob;
 
-    public Student() {
-    }
-
-    public Student(String name, String email, LocalDate dob) {
-        this.name = name;
-        this.email = email;
-        this.dob = dob;
-    }
 
     //Spring is automatically adding an "age" field to the Student JSON object in GET response
     public Integer getAge() {
