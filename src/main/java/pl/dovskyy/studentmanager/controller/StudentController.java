@@ -38,31 +38,37 @@ public class StudentController {
         return mav;
     }
 
+    @GetMapping("/showUpdateForm")
+    public ModelAndView updateStudent(@RequestParam Long studentId){
+        ModelAndView mav = new ModelAndView("update-student-form");
+        Student student = studentService.getStudentById(studentId);
+        mav.addObject("student", student);
+        return mav;
+    }
+
+    @PostMapping("/updateStudent")
+    public String updateStudent(@ModelAttribute Student student) {
+        studentService.updateStudent(student);
+        return "redirect:/students/list";
+    }
+
     @PostMapping("/saveStudent")
     public String saveStudent(@ModelAttribute Student student) {
         studentService.addNewStudent(student);
         return "redirect:/students/list";
     }
 
-
     // example path for DELETE would be:
+
     @DeleteMapping("/delete/{studentId}")
     public void deleteStudent(@PathVariable Long studentId){
         studentService.deleteStudent(studentId);
     }
 
-    @PutMapping("/update/{studentId}")
-    public void updateStudent(@PathVariable Long studentId,
-                              @RequestParam(required = false) String name,
-                              @RequestParam(required = false) String email) {
-
-        studentService.updateStudent(studentId, name, email);
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ModelAndView handleIllegalArgumentException(IllegalArgumentException ex) {
-        ModelAndView mav = new ModelAndView("error");
-        mav.addObject("errorMsg", ex.getMessage());
-        return mav;
-    }
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    public ModelAndView handleIllegalArgumentException(IllegalArgumentException ex) {
+//        ModelAndView mav = new ModelAndView("error");
+//        mav.addObject("errorMsg", ex.getMessage());
+//        return mav;
+//    }
 }

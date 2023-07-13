@@ -46,25 +46,20 @@ public class StudentService {
         }
     }
 
-    // because we use the @Transactional annotation we don't need to use studentRepository. Eve
-    @Transactional
-    public void updateStudent(Long studentId, String name, String email){
+    public Student getStudentById(Long studentId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Student with given ID doesn't exist"));
+        return student;
+    }
 
-        // check if names differ
-        if (name != null && name.length() > 0 && !student.getName().equals(name)) {
-            student.setName(name);
-        }
-
-        // check if emails differ, and if given email doesn't already exist in database
-        if (email != null && email.length() > 0 && !student.getEmail().equals(email)) {
-            Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
-            if (studentOptional.isPresent()) {
-                throw new IllegalArgumentException("Student with given email already exists");
-            } else {
-                student.setEmail(email);
-            }
+    // all the actions will be performed as one transaction. If an exception occurs the transaction will cancel
+    @Transactional
+    public void updateStudent(Student studentToUpdate){
+        String email = studentToUpdate.getEmail();
+        if (studentRepository.findStudentByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("User with given email exists");
+        } else {
+            studentRepository.save(studentToUpdate);
         }
     }
 }
