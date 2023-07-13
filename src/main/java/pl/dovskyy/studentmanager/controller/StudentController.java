@@ -12,7 +12,7 @@ import pl.dovskyy.studentmanager.service.StudentService;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "api/v1/student")
+@RequestMapping(path = "students")
 public class StudentController {
 
     private final StudentService studentService;
@@ -22,7 +22,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ModelAndView getStudents(){
         ModelAndView mav = new ModelAndView("list-students"); //list-students is the thymeleaf template name
         List<Student> studentList = studentService.getStudents();
@@ -30,9 +30,18 @@ public class StudentController {
         return mav;
     }
 
-    @PostMapping("/add")
-    public void registerNewStudent(@RequestBody Student student) {
+    @GetMapping("/addStudentForm")
+    public ModelAndView addStudentForm() {
+        ModelAndView mav = new ModelAndView("add-student-form");
+        Student newStudent = new Student();
+        mav.addObject("student", newStudent);
+        return mav;
+    }
+
+    @PostMapping("/saveStudent")
+    public String saveStudent(@ModelAttribute Student student) {
         studentService.addNewStudent(student);
+        return "redirect:/students/list";
     }
 
 
@@ -48,5 +57,12 @@ public class StudentController {
                               @RequestParam(required = false) String email) {
 
         studentService.updateStudent(studentId, name, email);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ModelAndView handleIllegalArgumentException(IllegalArgumentException ex) {
+        ModelAndView mav = new ModelAndView("error");
+        mav.addObject("errorMsg", ex.getMessage());
+        return mav;
     }
 }
