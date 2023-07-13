@@ -2,14 +2,16 @@ package pl.dovskyy.studentmanager.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.service.StudentService;
 
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping(path = "api/v1/student")
 public class StudentController {
 
@@ -21,8 +23,11 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getStudents(){
-        return studentService.getStudents();
+    public ModelAndView getStudents(){
+        ModelAndView mav = new ModelAndView("list-students"); //list-students is the thymeleaf template name
+        List<Student> studentList = studentService.getStudents();
+        mav.addObject("students", studentList);
+        return mav;
     }
 
     @PostMapping("/add")

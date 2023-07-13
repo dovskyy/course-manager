@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,13 +21,16 @@ public class Student {
     private String email;
     private LocalDate dob;
 
+    @ManyToMany(mappedBy = "students")
+    private Set<Course> courses = new HashSet<>();
 
-    //Spring is automatically adding an "age" field to the Student JSON object in GET response
+
+
     public Integer getAge() {
         return Period.between(dob, LocalDate.now()).getYears();
     }
 
-    //this one as well
+
     public String getMood() {
         return "good";
     }
