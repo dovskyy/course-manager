@@ -6,29 +6,31 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>Teachers list</title>
+    <title>Course list</title>
 </head>
 <body>
 
 <th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
 
 <div class="container">
-    <h2>List of teachers</h2>
+    <h2>List of courses</h2>
     <hr/>
-    <a th:href="@{/teachers/addTeacherForm}" class="btn btn-primary mb-2">Add teacher</a>
+    <a th:href="@{/courses/addCourseForm}" class="btn btn-primary mb-2">Add Course</a>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>Name</th>
-            <th>Email</th>
+            <th>Teacher name</th>
+            <th>No. of students</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="teacher: ${teachers}">
-            <td th:text="${teacher.getName()}"></td>
-            <td th:text="${teacher.getEmail()}"></td>
-            <td><a th:href="@{/teachers/deleteTeacher(teacherId=${teacher.id})}" class="btn btn-danger ml-2">Delete</a></td>
+        <tr th:each="course: ${courses}">
+            <td th:text="${course.getName()}"></td>
+            <td th:text="${course.getTeacher().getName()}"></td>
+            <td th:text="${course.getStudents().size()}"></td>
+            <td><a th:href="@{/courses/deleteTeacher(courseId=${course.id})}" class="btn btn-danger ml-2">Delete</a></td>
         </tr>
         </tbody>
     </table>
