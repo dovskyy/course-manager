@@ -60,9 +60,10 @@ public class StudentController {
 
     // example path for DELETE would be:
 
-    @DeleteMapping("/delete/{studentId}")
-    public void deleteStudent(@PathVariable Long studentId){
+    @GetMapping("/deleteStudent")
+    public String deleteStudent(@RequestParam Long studentId){
         studentService.deleteStudent(studentId);
+        return "redirect:/students/list";
     }
 
 //    @ExceptionHandler(IllegalArgumentException.class)
