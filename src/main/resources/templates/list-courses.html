@@ -32,7 +32,8 @@
             <td th:text="${course.getNumberOfStudents()}"></td>
             <td>
                 <a th:href="@{/courses/deleteCourse(courseId=${course.id})}" class="btn btn-danger ml-2">Delete</a>
-                <a th:href="@{/courses/addStudentCourseForm(courseId=${course.id})}" class="btn btn-danger ml-2">Add Student</a>
+                <a th:href="@{/courses/addStudentCourseForm(courseId=${course.id})}" class="btn btn-info ml-2">Add Student</a>
+                <a th:href="@{/courses/listStudents(courseId=${course.id})}" class="btn btn-info ml-2">List Students</a>
             </td>
         </tr>
         </tbody>

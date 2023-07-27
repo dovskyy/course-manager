@@ -3,6 +3,7 @@ package pl.dovskyy.studentmanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.dovskyy.studentmanager.model.Course;
 import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.repository.StudentRepository;
 
@@ -62,4 +63,5 @@ public class StudentService {
             studentRepository.save(studentToUpdate);
         }
     }
+
 }

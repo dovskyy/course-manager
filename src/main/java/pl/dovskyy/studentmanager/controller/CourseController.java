@@ -36,6 +36,14 @@ public class CourseController {
         return mav;
     }
 
+    @GetMapping("/listStudents")
+    public ModelAndView getStudentsFromCourse(@RequestParam Long courseId){
+        ModelAndView mav = new ModelAndView("list-course-students");
+        List<Student> studentList = courseService.getStudentsFromCourse(courseId);
+        mav.addObject("students", studentList);
+        return mav;
+    }
+
     @GetMapping("/addCourseForm")
     public ModelAndView addCourseForm() {
         ModelAndView mav = new ModelAndView("add-course-form");

@@ -7,6 +7,7 @@ import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.repository.CourseRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +51,12 @@ public class CourseService {
         } else {
             throw new IllegalArgumentException("No course found");
         }
+    }
+
+    public List<Student> getStudentsFromCourse(Long courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("Course with given ID doesn't exist"));
+
+        return new ArrayList<>(course.getStudents());
     }
 }
