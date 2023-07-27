@@ -29,8 +29,11 @@
         <tr th:each="course: ${courses}">
             <td th:text="${course.getName()}"></td>
             <td th:text="${course.getTeacher().getName()}"></td>
-            <td th:text="${course.numberOfStudents}"></td>
-            <td><a th:href="@{/courses/deleteTeacher(courseId=${course.id})}" class="btn btn-danger ml-2">Delete</a></td>
+            <td th:text="${course.getNumberOfStudents()}"></td>
+            <td>
+                <a th:href="@{/courses/deleteCourse(courseId=${course.id})}" class="btn btn-danger ml-2">Delete</a>
+                <a th:href="@{/courses/addStudentCourseForm(courseId=${course.id})}" class="btn btn-danger ml-2">Add Student</a>
+            </td>
         </tr>
         </tbody>
     </table>

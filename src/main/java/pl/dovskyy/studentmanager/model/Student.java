@@ -1,8 +1,11 @@
 package pl.dovskyy.studentmanager.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -25,8 +28,9 @@ public class Student {
     private LocalDate dob;
 
     @ManyToMany(mappedBy = "students")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Course> courses = new HashSet<>();
-
 
 
     public Integer getAge() {

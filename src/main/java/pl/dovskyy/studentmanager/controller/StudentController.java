@@ -65,11 +65,4 @@ public class StudentController {
         studentService.deleteStudent(studentId);
         return "redirect:/students/list";
     }
-
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    public ModelAndView handleIllegalArgumentException(IllegalArgumentException ex) {
-//        ModelAndView mav = new ModelAndView("error");
-//        mav.addObject("errorMsg", ex.getMessage());
-//        return mav;
-//    }
 }
