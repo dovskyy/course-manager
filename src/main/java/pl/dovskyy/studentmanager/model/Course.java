@@ -30,4 +30,10 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private Set<Student> students = new HashSet<>();
+
+    //transient means that the field won't be mapped into a column in the database
+    @Transient
+    public int getNumberOfStudents() {
+        return students.size();
+    }
 }

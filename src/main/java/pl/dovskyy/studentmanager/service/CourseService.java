@@ -3,7 +3,6 @@ package pl.dovskyy.studentmanager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dovskyy.studentmanager.model.Course;
-import pl.dovskyy.studentmanager.model.Teacher;
 import pl.dovskyy.studentmanager.repository.CourseRepository;
 
 import java.util.List;

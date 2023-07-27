@@ -15,7 +15,7 @@
 <div class="container">
     <h2>List of courses</h2>
     <hr/>
-    <a th:href="@{/courses/addCourseForm}" class="btn btn-primary mb-2">Add Course</a>
+
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
@@ -29,11 +29,12 @@
         <tr th:each="course: ${courses}">
             <td th:text="${course.getName()}"></td>
             <td th:text="${course.getTeacher().getName()}"></td>
-            <td th:text="${course.getStudents().size()}"></td>
+            <td th:text="${course.numberOfStudents}"></td>
             <td><a th:href="@{/courses/deleteTeacher(courseId=${course.id})}" class="btn btn-danger ml-2">Delete</a></td>
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/courses/addCourseForm}" class="btn btn-primary mb-2">Add Course</a>
 
 </div>
 
