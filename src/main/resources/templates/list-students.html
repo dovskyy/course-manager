@@ -42,6 +42,10 @@
     <a th:href="@{/students/addStudentForm}" class="btn btn-primary mb-2">Add student</a>
 </div>
 
+<div class="container">
+    <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+</div>
+
 <script src="jquery-3.6.4.min.js"></script>
 <script src="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.5/datatables.min.js"></script>
 <script>
