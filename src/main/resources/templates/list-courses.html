@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet"
+          href="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.5/datatables.min.css">
+    <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
@@ -17,7 +19,7 @@
     <h2>List of courses</h2>
     <hr/>
 
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" id="course-table">
         <thead>
         <tr>
             <th>Name</th>
@@ -46,6 +48,20 @@
 <div class="container">
     <th:block th:replace="fragments :: footer" th:remove="tag" ></th:block>
 </div>
+
+<script src="jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.5/datatables.min.js"></script>
+<script>
+    /* the function below deletes the sorting option for 'Actions' [-1] (first col from the right) column in the table*/
+    $(document).ready(function () {
+        $("#course-table").DataTable({
+            'aoColumnDefs' : [{
+                'bSortable': false,
+                'aTargets' : [-1]
+            }]
+        });
+    })
+</script>
 
 </body>
 </html>

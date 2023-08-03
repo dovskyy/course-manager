@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+}
+
+.jumbotron {
+    background: linear-gradient(to right, #974df5, #2196F3);
+    color: #fff;
+    text-align: center;
+    padding: 100px;
+}
+
+.jumbotron h1 {
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.jumbotron p {
+    font-size: 1.5em;
+}
+
+.feature-section {
+    padding: 50px 0;
+}
+
+.feature-section .feature {
+    text-align: center;
+    padding: 20px;
+}
+
+.feature-section .icon {
+    font-size: 3em;
+    color: #007bff;
+}
+
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}

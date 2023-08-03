@@ -13,11 +13,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <a class="navbar-brand mt-2 mt-lg-0" href="/">
-                <img
-                        src="https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Harvard_shield_wreath.svg/1280px-Harvard_shield_wreath.svg.png"
-                        height="30"
-                        alt="Harvard Logo"
-                        loading="lazy"
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Harvard_shield_wreath.svg/1280px-Harvard_shield_wreath.svg.png"
+                     height="30"
+                     alt="Harvard Logo"
+                     loading="lazy"
                 />
             </a>
             <ul class="navbar-nav">
@@ -30,10 +29,23 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/teachers/list}">Teachers</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ml-auto"> <!-- Dodajemy klasę "ml-auto" tutaj -->
+                <li th:if="${#httpServletRequest.remoteUser == null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <li th:if="${#httpServletRequest.remoteUser == null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/registration}">Register</a>
+                </li>
+                <li th:if="${#httpServletRequest.remoteUser != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
 
             </ul>
         </div>
     </nav>
+
+
 </th:block>
 
 <th:block th:fragment="footer">
