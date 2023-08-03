@@ -7,10 +7,10 @@ The Course Management System is a web application built using Spring Boot that f
 
 ## Features
 
-- User Registration and Login: The application provides a user-friendly interface for users to register and log in with their credentials, ensuring secure access to the system.
-- Teacher Functionality: Teachers have access to features that enable them to manage courses and students assigned to them. They can add course materials, set assignments, grade students' work, and track their progress.
-- Student Functionality: Students can enroll in courses, access course materials, submit assignments, and view their grades. The system also provides personalized dashboards for students to track their academic progress.
-- Admin Functionality: Administrators have privileged access to the system, allowing them to manage courses, students, and teachers. Admins can add, update, or delete courses, manage student and teacher information, and oversee the overall system operations.
+- **User Registration and Login:** The application provides a user-friendly interface for users to register and log in with their credentials, ensuring secure access to the system.
+- **Teacher Functionality:** Teachers have access to features that enable them to manage courses and students assigned to them. They can add course materials, set assignments, grade students' work, and track their progress.
+- **Student Functionality:** Students can enroll in courses, access course materials, submit assignments, and view their grades. The system also provides personalized dashboards for students to track their academic progress.
+- **Admin Functionality:** Administrators have privileged access to the system, allowing them to manage courses, students, and teachers. Admins can add, update, or delete courses, manage student and teacher information, and oversee the overall system operations.
 
 
 
