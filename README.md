@@ -50,8 +50,8 @@ Use this MySQL configuration in ```application.properties```
 
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/student_manager?createDatabaseIfNotExist=true
-spring.datasource.username=root
-spring.datasource.password=root
+spring.datasource.username=[username]
+spring.datasource.password=[password]
 spring.jpa.database=mysql
 spring.jpa.hibernate.ddl-auto=update
 ```
