@@ -25,14 +25,17 @@ public class RegistrationController {
     }
 
     @PostMapping("/registerUser")
-    public String register(@ModelAttribute RegistrationRequest request) {
-        registrationService.register(request);
-        return "redirect:/";
+    public ModelAndView register(@ModelAttribute RegistrationRequest request) {
+        String token = registrationService.register(request);
+        ModelAndView mav = new ModelAndView("tokenView");
+        mav.addObject("token", token);
+        return mav;
     }
 
-    @GetMapping(path = "confirm")
-    public String confirm() {
-        return "dupa";
+    @GetMapping(path = "/confirm")
+    public String confirm(@RequestParam String token) {
+        registrationService.confirmToken(token);
+        return "tokenConfirmed";
     }
 
 }
