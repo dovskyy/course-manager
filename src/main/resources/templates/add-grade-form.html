@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <title>Add Grade</title>
+</head>
+<body>
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="container">
+    <h2>Add Grade</h2>
+    <hr/>
+    <form th:action="@{/grades/saveGrade}" th:object="${grade}" method="POST">
+
+        <input type="number" th:field="*{value}" placeholder="Enter value" class="form-control col-4 mb-4" min="2" max="5"/>
+
+        <select class="form-control col-4 mb-4" th:field="*{student.id}">
+            <option th:each="student : ${studentList}" th:value="${student.id}" th:text="${student.name}"></option>
+        </select>
+
+        <select class="form-control col-4 mb-4" th:field="*{course.id}">
+            <option th:each="course : ${courseList}" th:value="${course.id}" th:text="${course.name}"></option>
+        </select>
+
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn btn-primary border" th:href="@{/courses/list}">Back to list</a>
+        <input type="hidden" th:field="*{id}"/>
+    </form>
+</div>
+
+<div class="container">
+    <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
+</div>
+
+</body>
+</html>

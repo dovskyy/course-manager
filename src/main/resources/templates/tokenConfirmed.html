@@ -11,8 +11,21 @@
 </head>
 <body>
 
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
 <div class="container">
-    <h2>Token has been confirmed, account has been enabled.</h2>
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Token Information
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Token confirmed! Your account is now enabled.</span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
