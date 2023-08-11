@@ -24,4 +24,8 @@ public class GradeService {
     public void saveGrade(Grade grade) {
         gradeRepository.save(grade);
     }
+
+    public void deleteGrade(Long gradeId) {
+        gradeRepository.deleteById(gradeId);
+    }
 }

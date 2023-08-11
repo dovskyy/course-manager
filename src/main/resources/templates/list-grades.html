@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.5/datatables.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="sticky-footer.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Course list</title>
 </head>
 <body>
+
+<th:block th:replace="fragments :: navigator" th:remove="tag"></th:block>
+
+<div class="container">
+    <h2>List of grades</h2>
+    <hr/>
+
+    <table class="table table-bordered table-striped" id="course-table">
+        <thead>
+        <tr>
+            <th>Student name</th>
+            <th>Grade</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="grade: ${grades}">
+            <td th:text="${grade.getStudent().getName()}"></td>
+            <td th:text="${grade.getValue()}"></td>
+            <td th:text="${grade.getCourse().getName()}"></td>
+            <td>
+                <a th:href="@{/grades/deleteGrade(gradeId=${grade.id})}" class="btn btn-danger ml-2">Delete</a>
+<!--                TODO: Create links to "Show course", "Show Student" (need to create templates to show these objects)-->
+                <a th:href="@{/}" class="btn btn-info ml-2">Show Course</a>
+                <a th:href="@{/}" class="btn btn-info ml-2">Show Student</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/grades/addGradeForm}" class="btn btn-primary mb-2">Add grade</a>
+
+</div>
+
+<div class="container">
+    <th:block th:replace="fragments :: footer" th:remove="tag" ></th:block>
+</div>
+
+<script src="jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.5/datatables.min.js"></script>
+<script>
+    /* the function below deletes the sorting option for 'Actions' [-1] (first col from the right) column in the table*/
+    $(document).ready(function () {
+        $("#course-table").DataTable({
+            'aoColumnDefs' : [{
+                'bSortable': false,
+                'aTargets' : [-1]
+            }]
+        });
+    })
+</script>
 
 </body>
 </html>

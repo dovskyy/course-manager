@@ -16,7 +16,13 @@
     <hr/>
     <form th:action="@{/grades/saveGrade}" th:object="${grade}" method="POST">
 
-        <input type="number" th:field="*{value}" placeholder="Enter value" class="form-control col-4 mb-4" min="2" max="5"/>
+        <select th:field="*{value}" class="form-select col-4 mb-4">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
 
         <select class="form-control col-4 mb-4" th:field="*{student.id}">
             <option th:each="student : ${studentList}" th:value="${student.id}" th:text="${student.name}"></option>
