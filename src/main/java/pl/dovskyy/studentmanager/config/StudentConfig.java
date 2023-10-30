@@ -12,7 +12,6 @@ import java.util.List;
 @Configuration
 public class StudentConfig {
 
-
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository repository) {
         return args -> {

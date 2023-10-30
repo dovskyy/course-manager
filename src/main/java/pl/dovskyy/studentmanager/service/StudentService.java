@@ -3,6 +3,7 @@ package pl.dovskyy.studentmanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.dovskyy.studentmanager.dto.StudentDto;
 import pl.dovskyy.studentmanager.model.Course;
 import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.repository.StudentRepository;
@@ -64,4 +65,9 @@ public class StudentService {
         }
     }
 
+    public StudentDto getStudentDtoById(Long studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("Student with given ID doesn't exist"));
+        return new StudentDto(student);
+    }
 }

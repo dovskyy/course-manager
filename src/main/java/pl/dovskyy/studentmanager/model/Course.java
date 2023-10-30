@@ -1,5 +1,6 @@
 package pl.dovskyy.studentmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,6 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-
     private Teacher teacher;
 
     @ManyToMany
@@ -37,6 +37,7 @@ public class Course {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    @JsonBackReference // this annotation is used to prevent infinite recursion when serializing objects with bidirectional relationships
     private Set<Student> students = new HashSet<>();
 
 }

@@ -3,6 +3,7 @@ package pl.dovskyy.studentmanager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dovskyy.studentmanager.model.Grade;
+import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.repository.GradeRepository;
 
 import java.util.List;
@@ -28,4 +29,5 @@ public class GradeService {
     public void deleteGrade(Long gradeId) {
         gradeRepository.deleteById(gradeId);
     }
+
 }

@@ -2,6 +2,7 @@ package pl.dovskyy.studentmanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.dovskyy.studentmanager.dto.StudentDto;
 import pl.dovskyy.studentmanager.model.Course;
 import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.repository.CourseRepository;
@@ -58,5 +59,15 @@ public class CourseService {
                 .orElseThrow(() -> new IllegalArgumentException("Course with given ID doesn't exist"));
 
         return new ArrayList<>(course.getStudents());
+    }
+
+    public List<StudentDto> getStudentDtoFromCourse(Long courseId){
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("Course with given ID doesn't exist"));
+        List<StudentDto> studentDtoList = new ArrayList<>();
+        for (Student student : course.getStudents()) {
+            studentDtoList.add(new StudentDto(student));
+        }
+        return studentDtoList;
     }
 }

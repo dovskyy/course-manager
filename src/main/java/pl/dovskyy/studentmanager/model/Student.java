@@ -2,6 +2,7 @@ package pl.dovskyy.studentmanager.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Student {
     @ManyToMany(mappedBy = "students")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonManagedReference // this annotation is used to prevent infinite recursion when serializing objects with bidirectional relationships
     private Set<Course> courses = new HashSet<>();
 
 
