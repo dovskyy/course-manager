@@ -18,6 +18,8 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
+@ToString(exclude = {"courses"})
+@EqualsAndHashCode(exclude = {"courses"})
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +31,6 @@ public class Student {
     private LocalDate dob;
 
     @ManyToMany(mappedBy = "students")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @JsonManagedReference // this annotation is used to prevent infinite recursion when serializing objects with bidirectional relationships
     private Set<Course> courses = new HashSet<>();
 

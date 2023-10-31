@@ -23,9 +23,9 @@ The application provides a REST API for external applications to access the syst
 
 **API:** REST
 
-**Database managment:** MySQL, Spring Data JPA, Hibernate
+**Database management:** MySQL, Spring Data JPA, Hibernate
 
-**Project managment:** Maven
+**Project management:** Maven
 
 
 
@@ -90,4 +90,6 @@ spring.datasource.password=[password]
 spring.jpa.database=mysql
 spring.jpa.hibernate.ddl-auto=update
 ```
+
+Change the MySQL server address, username, and password to match your configuration.
     

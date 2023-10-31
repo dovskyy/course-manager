@@ -63,4 +63,19 @@ public class TeacherService {
         TeacherDto teacherDto = new TeacherDto(teacher);
         return teacherDto;
     }
+
+    public TeacherDto addNewTeacherDto(TeacherDto teacherDto) {
+        //check if teacher with given email exists
+        Optional<Teacher> teacherOptional = teacherRepository.findTeacherByEmail(teacherDto.getEmail());
+        if (teacherOptional.isPresent()) {
+            throw new IllegalArgumentException("Teacher with given email already exists");
+        }
+        //if not, create new teacher
+        Teacher teacher = new Teacher();
+        teacher.setName(teacherDto.getName());
+        teacher.setEmail(teacherDto.getEmail());
+        teacherRepository.save(teacher);
+        return new TeacherDto(teacher);
+    }
+
 }

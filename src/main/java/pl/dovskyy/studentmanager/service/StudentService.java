@@ -80,4 +80,18 @@ public class StudentService {
         }
         return studentDtoList;
     }
+
+    public StudentDto addNewStudentDto(StudentDto studentDto) {
+        //check if student with given email exists
+        Optional<Student> studentOptional = studentRepository.findStudentByEmail(studentDto.getEmail());
+        if (studentOptional.isPresent()) {
+            throw new IllegalArgumentException("Student with given email already exists");
+        }
+        //if not, create new student
+        Student student = new Student();
+        student.setName(studentDto.getName());
+        student.setEmail(studentDto.getEmail());
+        studentRepository.save(student);
+        return new StudentDto(student);
+    }
 }

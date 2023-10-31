@@ -2,14 +2,9 @@ package pl.dovskyy.studentmanager.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.dovskyy.studentmanager.dto.TeacherDto;
 import pl.dovskyy.studentmanager.service.TeacherService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/teachers")
@@ -24,18 +19,37 @@ public class TeacherApiController {
     }
 
     @GetMapping("/getTeacherById")
-    public ResponseEntity<?> getTeacherDtoById(@RequestParam Long teacherId) {
+    public ResponseEntity<?> getTeacherDtoById(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok(teacherService.getTeacherDtoById(teacherId));
+            return ResponseEntity.ok(teacherService.getTeacherDtoById(id));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @GetMapping("/getTeacherByEmail")
-    public ResponseEntity<?> getTeacherDtoByEmail(@RequestParam String teacherEmail) {
+    public ResponseEntity<?> getTeacherDtoByEmail(@RequestParam String email) {
         try {
-            return ResponseEntity.ok(teacherService.getTeacherDtoByEmail(teacherEmail));
+            return ResponseEntity.ok(teacherService.getTeacherDtoByEmail(email));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/addTeacher")
+    public ResponseEntity<?> addTeacher(@RequestBody TeacherDto teacherDto) {
+        try {
+            return ResponseEntity.ok(teacherService.addNewTeacherDto(teacherDto)); //method will return added teacher with ID
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage()); //or error message
+        }
+    }
+
+    @DeleteMapping("/deleteTeacher")
+    public ResponseEntity<?> deleteTeacher(@RequestParam Long teacherId) {
+        try {
+            teacherService.deleteTeacher(teacherId);
+            return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

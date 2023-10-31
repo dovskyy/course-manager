@@ -95,4 +95,26 @@ public class CourseService {
         }
         return coursesDto;
     }
+
+    public List<CourseDto> getCoursesDtoByStudentId(Long studentId) {
+        List<Course> courses = courseRepository.findAllByStudentsId(studentId);
+        List<CourseDto> coursesDto = new ArrayList<>();
+        for (Course course : courses) {
+            coursesDto.add(new CourseDto(course));
+        }
+        return coursesDto;
+    }
+
+    public CourseDto addNewCourseDto(CourseDto courseDto) {
+        //check whether Course with given name exists
+        Optional<Course> courseOptional = courseRepository.findCourseByName(courseDto.getName());
+        if (courseOptional.isPresent()) {
+            throw new IllegalArgumentException("Course with given name already exists");
+        }
+        //if not, create new course
+        Course course = new Course();
+        course.setName(courseDto.getName());
+        courseRepository.save(course);
+        return new CourseDto(course);
+    }
 }

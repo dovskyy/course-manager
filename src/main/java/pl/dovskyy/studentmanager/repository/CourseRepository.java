@@ -5,9 +5,14 @@ import org.springframework.stereotype.Repository;
 import pl.dovskyy.studentmanager.model.Course;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     List<Course> findAllByTeacherId(Long teacherId);
+
+    List<Course> findAllByStudentsId(Long studentId);
+
+    Optional<Course> findCourseByName(String name);
 }

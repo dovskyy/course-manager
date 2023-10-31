@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.dovskyy.studentmanager.service.CourseService;
 import pl.dovskyy.studentmanager.service.StudentService;
 
-import java.util.List;
-
 @RestController()
 @RequestMapping("/api/students")
 public class StudentApiController {
@@ -27,9 +25,9 @@ public class StudentApiController {
     }
 
     @GetMapping("/getStudentById")
-    public ResponseEntity<?> getStudentDtoById(@RequestParam Long studentId) {
+    public ResponseEntity<?> getStudentDtoById(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok(studentService.getStudentDtoById(studentId));
+            return ResponseEntity.ok(studentService.getStudentDtoById(id));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

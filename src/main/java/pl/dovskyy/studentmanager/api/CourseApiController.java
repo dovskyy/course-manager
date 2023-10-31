@@ -23,18 +23,18 @@ public class CourseApiController {
     }
 
     @GetMapping("/getCourseById")
-    public ResponseEntity<?> getCourseDtoById(Long courseId) {
+    public ResponseEntity<?> getCourseDtoById(Long id) {
         try {
-            return ResponseEntity.ok(courseService.getCourseDtoById(courseId));
+            return ResponseEntity.ok(courseService.getCourseDtoById(id));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @GetMapping("/getCoursesByTeacherId")
-    public ResponseEntity<?> getCoursesDtoByTeacherId(Long teacherId) {
+    public ResponseEntity<?> getCoursesDtoByTeacherId(Long id) {
         try {
-            return ResponseEntity.ok(courseService.getCoursesDtoByTeacherId(teacherId));
+            return ResponseEntity.ok(courseService.getCoursesDtoByTeacherId(id));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
