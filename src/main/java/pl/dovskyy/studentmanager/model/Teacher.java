@@ -20,4 +20,8 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher")
     private Set<Course> courses = new HashSet<>();
+
+    public int getNumberOfCourses() {
+        return courses.size();
+    }
 }

@@ -1,19 +1,18 @@
 package pl.dovskyy.studentmanager.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.dovskyy.studentmanager.dto.StudentDto;
-import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.service.CourseService;
 import pl.dovskyy.studentmanager.service.StudentService;
 
 import java.util.List;
 
 @RestController()
-@RequestMapping("/api")
+@RequestMapping("/api/students")
 public class StudentApiController {
 
     @Autowired
@@ -23,25 +22,26 @@ public class StudentApiController {
     private CourseService courseService;
 
     @GetMapping("/getStudents")
-    public List<Student> getStudents() {
-        return studentService.getStudents();
+    public ResponseEntity<?> getStudentsDto() {
+        return ResponseEntity.ok(studentService.getStudentsDto());
     }
 
-    //implement methods:
-    //getStudentById
-    //addNewStudent
-    //updateStudent
-    //deleteStudent
-    //getStudentsFromCourse
-
     @GetMapping("/getStudentById")
-    public StudentDto getStudentDtoById(Long studentId) {
-        return studentService.getStudentDtoById(studentId);
+    public ResponseEntity<?> getStudentDtoById(@RequestParam Long studentId) {
+        try {
+            return ResponseEntity.ok(studentService.getStudentDtoById(studentId));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/getStudentsFromCourse")
-    public List<StudentDto> getStudentsDtoFromCourse(@RequestParam Long courseId) {
-        return courseService.getStudentDtoFromCourse(courseId);
+    public ResponseEntity<?> getStudentsDtoFromCourse(@RequestParam Long courseId) {
+        try {
+            return ResponseEntity.ok(courseService.getStudentsDtoFromCourse(courseId));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

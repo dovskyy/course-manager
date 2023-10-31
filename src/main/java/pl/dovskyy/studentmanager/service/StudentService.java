@@ -10,6 +10,7 @@ import pl.dovskyy.studentmanager.repository.StudentRepository;
 
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,5 +70,14 @@ public class StudentService {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Student with given ID doesn't exist"));
         return new StudentDto(student);
+    }
+
+    public List<StudentDto> getStudentsDto() {
+        List<Student> students = studentRepository.findAll();
+        List<StudentDto> studentDtoList = new ArrayList<>();
+        for (Student student : students) {
+            studentDtoList.add(new StudentDto(student));
+        }
+        return studentDtoList;
     }
 }

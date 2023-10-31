@@ -2,6 +2,7 @@ package pl.dovskyy.studentmanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.dovskyy.studentmanager.dto.CourseDto;
 import pl.dovskyy.studentmanager.dto.StudentDto;
 import pl.dovskyy.studentmanager.model.Course;
 import pl.dovskyy.studentmanager.model.Student;
@@ -61,7 +62,7 @@ public class CourseService {
         return new ArrayList<>(course.getStudents());
     }
 
-    public List<StudentDto> getStudentDtoFromCourse(Long courseId){
+    public List<StudentDto> getStudentsDtoFromCourse(Long courseId){
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course with given ID doesn't exist"));
         List<StudentDto> studentDtoList = new ArrayList<>();
@@ -69,5 +70,29 @@ public class CourseService {
             studentDtoList.add(new StudentDto(student));
         }
         return studentDtoList;
+    }
+
+    public List<CourseDto> getCoursesDto() {
+        List<Course> courses = courseRepository.findAll();
+        List<CourseDto> coursesDto = new ArrayList<>();
+        for (Course course : courses) {
+            coursesDto.add(new CourseDto(course));
+        }
+        return coursesDto;
+    }
+
+    public CourseDto getCourseDtoById(Long courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("Course with given ID doesn't exist"));
+        return new CourseDto(course);
+    }
+
+    public List<CourseDto> getCoursesDtoByTeacherId(Long teacherId) {
+        List<Course> courses = courseRepository.findAllByTeacherId(teacherId);
+        List<CourseDto> coursesDto = new ArrayList<>();
+        for (Course course : courses) {
+            coursesDto.add(new CourseDto(course));
+        }
+        return coursesDto;
     }
 }

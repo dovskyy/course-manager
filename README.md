@@ -2,8 +2,7 @@
 # Course manager web app
 
 The Course Management System is a web application built using Spring Boot that facilitates the management of courses, students, and teachers. The system offers user registration and login functionalities to ensure secure access for its users. Depending on the type of account (admin, teacher, or student), different sets of features are available to cater to their respective needs.
-
-
+The application provides a REST API for external applications to access the system's data. 
 
 ## Features
 
@@ -11,7 +10,7 @@ The Course Management System is a web application built using Spring Boot that f
 - **Teacher Functionality:** Teachers have access to features that enable them to manage courses and students assigned to them. They can add course materials, set assignments, grade students' work, and track their progress.
 - **Student Functionality:** Students can enroll in courses, access course materials, submit assignments, and view their grades. The system also provides personalized dashboards for students to track their academic progress.
 - **Admin Functionality:** Administrators have privileged access to the system, allowing them to manage courses, students, and teachers. Admins can add, update, or delete courses, manage student and teacher information, and oversee the overall system operations.
-
+- **REST API:** The application provides a REST API for external applications to access the system's data. The API supports CRUD operations for courses, students, and teachers.
 
 
 ## Tech Stack
@@ -19,6 +18,10 @@ The Course Management System is a web application built using Spring Boot that f
 **Client:** Java 11, Spring Boot, Spring MVC, Spring Web, Spring Security
 
 **View & Frontend:** HTML & CSS, Thymeleaf, Bootstrap, jQuery 
+
+**Testing:** JUnit 5, Mockito
+
+**API:** REST
 
 **Database managment:** MySQL, Spring Data JPA, Hibernate
 
@@ -37,6 +40,38 @@ The Course Management System is a web application built using Spring Boot that f
 
 ![App Screenshot](https://github.com/dovskyy/course-manager/assets/50681454/34fe93bc-8aaf-410f-8a43-6b4a73195208)
 
+
+## Example API Requests
+
+#### Get all courses
+
+```http
+  GET /api/courses/getCourses
+```
+
+#### Get course by id
+
+```http
+  GET /api/courses/getCourse?courseId{id}
+```
+
+#### Get all students
+
+```http
+  GET /api/students/getStudents
+```
+
+#### Get students from given course
+
+```http
+  GET /api/students/getStudentsFromCourse?courseId={id}
+```
+
+#### Get teacher by email
+
+```http
+  GET /api/teachers/getTeacher?TeacherEmail={email}
+```
 
 
 ## Installation
