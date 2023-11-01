@@ -55,12 +55,6 @@ The application provides a REST API for external applications to access the syst
   GET /api/courses/getCourse?courseId{id}
 ```
 
-#### Get all students
-
-```http
-  GET /api/students/getStudents
-```
-
 #### Get students from given course
 
 ```http
@@ -71,6 +65,20 @@ The application provides a REST API for external applications to access the syst
 
 ```http
   GET /api/teachers/getTeacher?TeacherEmail={email}
+```
+
+#### Update teacher information
+
+```http
+PUT /api/teachers/updateTeacher?id=1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Content-Length: 63
+
+{
+    "name": "Albert",
+    "email": "albertooo@gmail.com"
+}
 ```
 
 
