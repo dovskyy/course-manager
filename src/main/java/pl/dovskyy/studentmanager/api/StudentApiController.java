@@ -9,15 +9,19 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.dovskyy.studentmanager.service.CourseService;
 import pl.dovskyy.studentmanager.service.StudentService;
 
-@RestController()
+@RestController
 @RequestMapping("/api/students")
 public class StudentApiController {
 
-    @Autowired
-    private StudentService studentService;
+
+    private final StudentService studentService;
+    private final CourseService courseService;
 
     @Autowired
-    private CourseService courseService;
+    public StudentApiController(StudentService studentService, CourseService courseService) {
+        this.studentService = studentService;
+        this.courseService = courseService;
+    }
 
     @GetMapping("/getStudents")
     public ResponseEntity<?> getStudentsDto() {

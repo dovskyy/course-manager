@@ -11,8 +11,13 @@ import pl.dovskyy.studentmanager.service.TeacherService;
 @RequestMapping("/api/teachers")
 public class TeacherApiController {
 
+
+    private final TeacherService teacherService;
+
     @Autowired
-    private TeacherService teacherService;
+    public TeacherApiController(TeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
 
     @GetMapping("/getTeachers")
     public ResponseEntity<?> getTeachersDto() {
@@ -47,7 +52,7 @@ public class TeacherApiController {
         }
     }
 
-    
+
     @Transactional
     @DeleteMapping("/deleteTeacher")
     public ResponseEntity<?> deleteTeacher(@RequestParam Long teacherId) {

@@ -11,8 +11,12 @@ import pl.dovskyy.studentmanager.service.CourseService;
 @RequestMapping("/api/courses")
 public class CourseApiController {
 
+    private final CourseService courseService;
+
     @Autowired
-    private CourseService courseService;
+    public CourseApiController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @GetMapping("/getCourses")
     public ResponseEntity<?> getCoursesDto() {
