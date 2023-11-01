@@ -46,40 +46,65 @@ The application provides a REST API for external applications to access the syst
 #### Get all courses
 
 ```http
-  GET /api/courses/getCourses
+GET /api/courses/getCourses
+Host: localhost:8080
 ```
 
 #### Get course by id
 
 ```http
-  GET /api/courses/getCourse?courseId{id}
+GET /api/courses/getCourseById?id=1
+Host: localhost:8080
 ```
 
 #### Get students from given course
 
 ```http
-  GET /api/students/getStudentsFromCourse?courseId={id}
+GET /api/courses/getStudentsFromCourse?courseId=1
+Host: localhost:8080
 ```
 
 #### Get teacher by email
 
 ```http
-  GET /api/teachers/getTeacher?TeacherEmail={email}
+GET /api/teachers/getTeacherByEmail?teacherEmail=einstein@123.com
+Host: localhost:8080
 ```
 
 #### Update teacher information
 
 ```http
-PUT /api/teachers/updateTeacher?id=1 HTTP/1.1
+PUT /api/teachers/updateTeacher?id=1
 Host: localhost:8080
 Content-Type: application/json
-Content-Length: 63
 
 {
-    "name": "Albert",
-    "email": "albertooo@gmail.com"
+    "name": "Albert Einstein",
+    "email": "albert@gmail.com"
 }
 ```
+
+#### Add new course
+
+```http
+POST /api/courses/addCourse 
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "name": "Algebra",
+    "teacherId": "3"
+}
+```
+
+#### Delete course by id
+
+```http
+DELETE /api/courses/deleteCourse?id=1
+Host: localhost:8080
+```
+
+Full API documentation is available at http://localhost:8080/swagger-ui.html
 
 
 ## Installation

@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.dovskyy.studentmanager.dto.CourseDto;
 import pl.dovskyy.studentmanager.service.CourseService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/courses")
 public class CourseApiController {
@@ -52,9 +50,9 @@ public class CourseApiController {
 
     @Transactional
     @DeleteMapping("/deleteCourse")
-    public ResponseEntity<?> deleteCourse(@RequestParam Long courseId) {
+    public ResponseEntity<?> deleteCourse(@RequestParam Long id) {
         try {
-            courseService.deleteCourse(courseId);
+            courseService.deleteCourse(id);
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
