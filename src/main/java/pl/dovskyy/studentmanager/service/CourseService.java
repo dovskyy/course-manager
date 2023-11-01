@@ -6,7 +6,9 @@ import pl.dovskyy.studentmanager.dto.CourseDto;
 import pl.dovskyy.studentmanager.dto.StudentDto;
 import pl.dovskyy.studentmanager.model.Course;
 import pl.dovskyy.studentmanager.model.Student;
+import pl.dovskyy.studentmanager.model.Teacher;
 import pl.dovskyy.studentmanager.repository.CourseRepository;
+import pl.dovskyy.studentmanager.repository.TeacherRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -18,9 +20,12 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
+    private final TeacherRepository teacherRepository;
+
     @Autowired
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, TeacherRepository teacherRepository) {
         this.courseRepository = courseRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     public List<Course> getCourses() {
@@ -106,14 +111,52 @@ public class CourseService {
     }
 
     public CourseDto addNewCourseDto(CourseDto courseDto) {
-        //check whether Course with given name exists
+
+        //check whether Course and Teacher with given name exists
         Optional<Course> courseOptional = courseRepository.findCourseByName(courseDto.getName());
         if (courseOptional.isPresent()) {
             throw new IllegalArgumentException("Course with given name already exists");
         }
+        Optional<Teacher> teacherOptional = teacherRepository.findTeacherById(courseDto.getTeacherId());
+        if (teacherOptional.isEmpty()) {
+            throw new IllegalArgumentException("Teacher with given ID doesn't exist");
+        }
+
         //if not, create new course
         Course course = new Course();
         course.setName(courseDto.getName());
+        course.setTeacher(teacherOptional.get());
+
+        //save course
+        courseRepository.save(course);
+
+        //return course with ID
+        return new CourseDto(course);
+    }
+
+    public CourseDto updateCourseDto(Long id, CourseDto courseDto) {
+        //check whether course with given ID exists
+        Optional<Course> courseOptional = courseRepository.findCourseById(id);
+        if (courseOptional.isEmpty()) {
+            throw new IllegalArgumentException("Course with given ID doesn't exist");
+        }
+
+        Course course = courseOptional.get();
+        course.setName(courseDto.getName());
+
+        //check whether course with given name exists
+        Optional<Course> courseOptional2 = courseRepository.findCourseByName(course.getName());
+        if (courseOptional2.isPresent()) {
+            throw new IllegalArgumentException("Course with given name already exists");
+        }
+
+        //check if teacher with given ID exists
+        Optional<Teacher> teacherOptional = teacherRepository.findTeacherById(courseDto.getTeacherId());
+        if (teacherOptional.isEmpty()) {
+            throw new IllegalArgumentException("Teacher with given ID doesn't exist");
+        }
+        course.setTeacher(teacherOptional.get());
+
         courseRepository.save(course);
         return new CourseDto(course);
     }

@@ -78,4 +78,38 @@ class StudentServiceTest {
         //then
         assertFalse(studentRepository.existsById(student.getId()));
     }
+
+    @Test
+    void getStudentByIdTest() {
+        //given
+        int randomInt = (int) (Math.random() * 100);
+        Student student = new Student();
+        student.setName("Student" + randomInt);
+        student.setEmail("student" + randomInt + "@gmail.com");
+        student.setId((long) randomInt);
+
+        //when
+        when(studentRepository.findById(student.getId())).thenReturn(Optional.of(student));
+        Student result = studentService.getStudentById((long) randomInt);
+
+        //then
+        assertEquals(result.getId(), student.getId());
+    }
+
+    @Test
+    void updateStudentTest() {
+        //given
+        int randomInt = (int) (Math.random() * 100);
+        Student student = new Student();
+        student.setName("Student" + randomInt);
+        student.setEmail("student" + randomInt + "@gmail.com");
+        student.setId((long) randomInt);
+
+        //when
+        when(studentRepository.save(student)).thenReturn(student);
+        studentService.updateStudent(student);
+
+        //then
+        assertEquals(studentRepository.save(student), student);
+    }
 }

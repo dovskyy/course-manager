@@ -92,4 +92,5 @@ class CourseServiceTest {
         //then
         verify(courseRepository, times(1)).deleteById(course.getId());
     }
+
 }

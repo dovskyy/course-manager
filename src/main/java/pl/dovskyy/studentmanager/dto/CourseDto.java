@@ -23,4 +23,8 @@ public class CourseDto {
         this.teacherId = course.getTeacher().getId();
     }
 
+    public CourseDto(String name, Long teacherId) {
+        this.name = name;
+        this.teacherId = teacherId;
+    }
 }

@@ -2,6 +2,7 @@ package pl.dovskyy.studentmanager.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import pl.dovskyy.studentmanager.dto.TeacherDto;
 import pl.dovskyy.studentmanager.service.TeacherService;
@@ -36,6 +37,7 @@ public class TeacherApiController {
         }
     }
 
+    @Transactional
     @PostMapping("/addTeacher")
     public ResponseEntity<?> addTeacher(@RequestBody TeacherDto teacherDto) {
         try {
@@ -45,11 +47,23 @@ public class TeacherApiController {
         }
     }
 
+    
+    @Transactional
     @DeleteMapping("/deleteTeacher")
     public ResponseEntity<?> deleteTeacher(@RequestParam Long teacherId) {
         try {
             teacherService.deleteTeacher(teacherId);
             return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @Transactional
+    @PutMapping("/updateTeacher")
+    public ResponseEntity<?> updateTeacher(@RequestParam Long id, @RequestBody TeacherDto teacherDto) {
+        try {
+            return ResponseEntity.ok(teacherService.updateTeacherDto(id, teacherDto));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

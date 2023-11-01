@@ -20,11 +20,11 @@ public class TeacherService {
         this.teacherRepository = teacherRepository;
     }
 
-    public List<Teacher> getTeachers(){
+    public List<Teacher> getTeachers() {
         return teacherRepository.findAll();
     }
 
-    public void addNewTeacher (Teacher teacher) {
+    public void addNewTeacher(Teacher teacher) {
         Optional<Teacher> teacherOptional = teacherRepository.findTeacherByEmail(teacher.getEmail());
         if (teacherOptional.isPresent()) {
             throw new IllegalArgumentException("Teacher with given email already exists");
@@ -33,11 +33,15 @@ public class TeacherService {
         }
     }
 
-    public void deleteTeacher (Long teacherId) {
+    public void deleteTeacher(Long teacherId) {
         if (!teacherRepository.existsById(teacherId)) {
             throw new IllegalArgumentException("Teacher with given ID doesn't exist");
         } else {
-            teacherRepository.deleteById(teacherId);
+            try {
+                teacherRepository.deleteById(teacherId);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Teacher has courses assigned. Delete them first.");
+            }
         }
     }
 
@@ -74,6 +78,27 @@ public class TeacherService {
         Teacher teacher = new Teacher();
         teacher.setName(teacherDto.getName());
         teacher.setEmail(teacherDto.getEmail());
+        teacherRepository.save(teacher);
+        return new TeacherDto(teacher);
+    }
+
+    public TeacherDto updateTeacherDto(Long id, TeacherDto teacherDto) {
+        //check if teacher with given email exists
+        Optional<Teacher> teacherOptional = teacherRepository.findTeacherById(id);
+        if (teacherOptional.isEmpty()) {
+            throw new IllegalArgumentException("Teacher with given ID doesn't exist");
+        }
+
+        Teacher teacher = teacherOptional.get();
+        teacher.setName(teacherDto.getName());
+        teacher.setEmail(teacherDto.getEmail());
+
+        //check if email to update is not already taken by another teacher
+        Optional<Teacher> teacherOptional2 = teacherRepository.findTeacherByEmail(teacher.getEmail());
+        if (teacherOptional2.isPresent()) {
+            throw new IllegalArgumentException("Teacher with given email already exists");
+        }
+
         teacherRepository.save(teacher);
         return new TeacherDto(teacher);
     }
