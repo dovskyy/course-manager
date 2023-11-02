@@ -55,9 +55,9 @@ public class TeacherApiController {
 
     @Transactional
     @DeleteMapping("/deleteTeacher")
-    public ResponseEntity<?> deleteTeacher(@RequestParam Long teacherId) {
+    public ResponseEntity<?> deleteTeacher(@RequestParam Long id) {
         try {
-            teacherService.deleteTeacher(teacherId);
+            teacherService.deleteTeacher(id);
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -4,7 +4,6 @@ package pl.dovskyy.studentmanager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dovskyy.studentmanager.dto.StudentDto;
-import pl.dovskyy.studentmanager.model.Course;
 import pl.dovskyy.studentmanager.model.Student;
 import pl.dovskyy.studentmanager.repository.StudentRepository;
 
@@ -50,9 +49,8 @@ public class StudentService {
     }
 
     public Student getStudentById(Long studentId) {
-        Student student = studentRepository.findById(studentId)
+        return studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Student with given ID doesn't exist"));
-        return student;
     }
 
     // all the actions will be performed as one transaction. If an exception occurs the transaction will cancel
@@ -91,7 +89,62 @@ public class StudentService {
         Student student = new Student();
         student.setName(studentDto.getName());
         student.setEmail(studentDto.getEmail());
+        student.setDob(studentDto.getDob());
         studentRepository.save(student);
         return new StudentDto(student);
+    }
+
+
+    public StudentDto updateStudentDto(Long id, StudentDto studentDto) {
+        //check if student with given ID exists
+        Optional<Student> studentOptional = studentRepository.findStudentById(id);
+        if (studentOptional.isEmpty()){
+            throw new IllegalArgumentException("Student with given ID doesn't exist");
+        }
+
+        Student student = studentOptional.get();
+
+        if (studentDto.getDob() != null) {
+            student.setDob(studentDto.getDob());
+        }
+
+        if (studentDto.getName() != null) {
+            student.setName(studentDto.getName());
+        }
+
+        if (studentDto.getEmail() != null) {
+            Optional<Student> studentOptional2 = studentRepository.findStudentByEmail(studentDto.getEmail());
+            if (studentOptional2.isPresent()) {
+                throw new IllegalArgumentException("Student with given email already exists");
+            }
+            student.setEmail(studentDto.getEmail());
+        }
+
+        studentRepository.save(student);
+        return new StudentDto(student);
+    }
+
+    public List<StudentDto> getStudentsThatAttendCourses() {
+        List<Student> students = studentRepository.findAll();
+        List<StudentDto> studentDtoList = new ArrayList<>();
+
+        students.stream()
+                .filter(student -> student.getCourses().size() > 0)
+                .map(student -> new StudentDto(student))
+                .forEach(studentDtoList::add);
+
+        return studentDtoList;
+    }
+
+    public List<StudentDto> getStudentsThatDontAttendCourses() {
+        List<Student> students = studentRepository.findAll();
+        List<StudentDto> studentDtoList = new ArrayList<>();
+
+        students.stream()
+                .filter(student -> student.getCourses().size() == 0)
+                .map(student -> new StudentDto(student))
+                .forEach(studentDtoList::add);
+
+        return studentDtoList;
     }
 }

@@ -83,7 +83,7 @@ public class TeacherService {
     }
 
     public TeacherDto updateTeacherDto(Long id, TeacherDto teacherDto) {
-        //check if teacher with given email exists
+        //check if teacher with given id exists
         Optional<Teacher> teacherOptional = teacherRepository.findTeacherById(id);
         if (teacherOptional.isEmpty()) {
             throw new IllegalArgumentException("Teacher with given ID doesn't exist");
