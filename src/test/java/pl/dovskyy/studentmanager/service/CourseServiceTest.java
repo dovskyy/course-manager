@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import pl.dovskyy.studentmanager.dto.CourseDto;
 import pl.dovskyy.studentmanager.model.Course;
 import pl.dovskyy.studentmanager.model.Teacher;
 import pl.dovskyy.studentmanager.repository.CourseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -91,6 +93,24 @@ class CourseServiceTest {
 
         //then
         verify(courseRepository, times(1)).deleteById(course.getId());
+    }
+
+    @Test
+    public void addStudentToCourseTest() {
+
+//        //given
+//        int randomInt = (int) (Math.random() * 100);
+//        Course course = new Course();
+//        course.setId((long) randomInt);
+//        Teacher teacher = new Teacher();
+//        course.setTeacher(teacher);
+//
+//        //when
+//        when(courseRepository.findById(course.getId())).thenReturn(Optional.of(course));
+//        courseService.addStudentToCourse(course, st);
+//
+//        //then
+//        verify(courseRepository, times(1)).save(course);
     }
 
 }

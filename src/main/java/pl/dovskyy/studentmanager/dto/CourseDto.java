@@ -2,7 +2,9 @@ package pl.dovskyy.studentmanager.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.dovskyy.studentmanager.model.Course;
 
 @NoArgsConstructor
@@ -35,5 +37,13 @@ public class CourseDto {
     public CourseDto(String name, Long teacherId) {
         this.name = name;
         this.teacherId = teacherId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
