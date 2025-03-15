@@ -41,7 +41,7 @@ public class RegistrationService {
     @Transactional
     public String confirmToken(String token) {
 
-        //take a look of the token exists. The method returns optional, so we need to handle it with exception.
+        //take a look if the token exists. The method returns optional, so we need to handle it with exception.
         ConfirmationToken confirmationToken = confirmationTokenService
                 .getToken(token)
                 .orElseThrow(() ->

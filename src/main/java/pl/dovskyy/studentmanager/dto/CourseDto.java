@@ -10,7 +10,7 @@ import pl.dovskyy.studentmanager.model.Course;
 @NoArgsConstructor
 @Data
 public class CourseDto {
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY) //this field will be read only by Swagger
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     private String name;
 
