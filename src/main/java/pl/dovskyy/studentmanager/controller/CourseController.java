@@ -49,6 +49,14 @@ public class CourseController {
         ModelAndView mav = new ModelAndView("add-course-form");
         Course course = new Course();
         List<Teacher> teacherList = teacherService.getTeachers();
+
+        // Check if there are any teachers available
+        if (teacherList.isEmpty()) {
+            mav.setViewName("redirect:/teachers/addTeacherForm");
+            mav.addObject("error", "Musisz najpierw dodać nauczyciela przed utworzeniem kursu.");
+            return mav;
+        }
+
         mav.addObject("course", course);
         mav.addObject("teachers", teacherList);
         return mav;
@@ -75,8 +83,22 @@ public class CourseController {
 
     @PostMapping("/saveCourse")
     public String saveCourse(@ModelAttribute Course course) {
-        courseService.addNewCourse(course);
-        return "redirect:/courses/list";
+        // Validate that a teacher is selected
+        if (course.getTeacher() == null || course.getTeacher().getId() == null) {
+            return "redirect:/courses/addCourseForm?error=teacher_required";
+        }
+
+        // Validate that the course name is not empty
+        if (course.getName() == null || course.getName().trim().isEmpty()) {
+            return "redirect:/courses/addCourseForm?error=name_required";
+        }
+
+        try {
+            courseService.addNewCourse(course);
+            return "redirect:/courses/list";
+        } catch (Exception e) {
+            return "redirect:/courses/addCourseForm?error=save_failed";
+        }
     }
 
     @GetMapping("/deleteCourse")

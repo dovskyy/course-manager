@@ -20,7 +20,7 @@ public class Grade {
 
     @Min(2)
     @Max(5)
-    private int value;
+    private int gradeValue;
 
     @ManyToOne
     @JoinColumn(name = "student_id")

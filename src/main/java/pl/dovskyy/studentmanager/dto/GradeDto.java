@@ -13,14 +13,14 @@ public class GradeDto {
     private Long id;
 
     private LocalDate date;
-    private int value;
+    private int gradeValue;
     private Long courseId;
     private Long studentId;
 
     public GradeDto(Grade grade) {
         this.id = grade.getId();
         this.date = grade.getDate();
-        this.value = grade.getValue();
+        this.gradeValue = grade.getGradeValue();
         this.courseId = grade.getCourse().getId();
         this.studentId = grade.getStudent().getId();
     }

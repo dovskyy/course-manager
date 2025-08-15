@@ -14,13 +14,31 @@
 <div class="container">
   <h2>Add Course</h2>
   <hr/>
-  <form th:action="@{/courses/saveCourse}" th:object="${course}" method="POST">
-    <input type="text" th:field="*{name}" placeholder="Enter name" class="form-control col-4 mb-4"/>
-    <select class="form-control col-4 mb-4" th:field="*{teacher.id}">
-      <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}"></option>
-    </select>
-    <button class="btn btn-primary" type="submit">Save</button>
-    <a class="btn btn-primary border" th:href="@{/courses/list}">Back to list</a>
+
+  <!-- Error messages -->
+  <div th:if="${param.error}" class="alert alert-danger" role="alert">
+    <div th:if="${param.error[0] == 'teacher_required'}">Musisz wybrać nauczyciela dla kursu.</div>
+    <div th:if="${param.error[0] == 'name_required'}">Nazwa kursu jest wymagana.</div>
+    <div th:if="${param.error[0] == 'save_failed'}">Wystąpił błąd podczas zapisywania kursu. Spróbuj ponownie.</div>
+  </div>
+
+  <form th:action="@{/courses/saveCourse}" th:object="${course}" method="POST" onsubmit="return validateForm()">
+    <div class="form-group">
+      <label for="courseName">Nazwa kursu:</label>
+      <input type="text" id="courseName" th:field="*{name}" placeholder="Wprowadź nazwę kursu"
+             class="form-control col-4 mb-4" required/>
+    </div>
+
+    <div class="form-group">
+      <label for="teacherSelect">Wybierz nauczyciela:</label>
+      <select id="teacherSelect" class="form-control col-4 mb-4" th:field="*{teacher.id}" required>
+        <option value="">-- Wybierz nauczyciela --</option>
+        <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}"></option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Zapisz</button>
+    <a class="btn btn-secondary border" th:href="@{/courses/list}">Powrót do listy</a>
     <input type="hidden" th:field="*{id}"/>
   </form>
 </div>
@@ -28,6 +46,25 @@
 <div class="container">
   <th:block th:replace="fragments :: footer" th:remove="tag"></th:block>
 </div>
+
+<script>
+function validateForm() {
+    const courseName = document.getElementById('courseName').value.trim();
+    const teacherSelect = document.getElementById('teacherSelect').value;
+
+    if (courseName === '') {
+        alert('Nazwa kursu jest wymagana.');
+        return false;
+    }
+
+    if (teacherSelect === '') {
+        alert('Musisz wybrać nauczyciela dla kursu.');
+        return false;
+    }
+
+    return true;
+}
+</script>
 
 </body>
 </html>

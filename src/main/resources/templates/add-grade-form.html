@@ -16,7 +16,7 @@
     <hr/>
     <form th:action="@{/grades/saveGrade}" th:object="${grade}" method="POST">
 
-        <select th:field="*{value}" class="form-select col-4 mb-4">
+        <select th:field="*{gradeValue}" class="form-select col-4 mb-4">
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>

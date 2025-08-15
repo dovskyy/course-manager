@@ -37,6 +37,21 @@ public class CourseService {
     }
 
     public void addNewCourse(Course course) {
+        // Validate that course has a name
+        if (course.getName() == null || course.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Nazwa kursu nie może być pusta");
+        }
+
+        // Validate that course has a teacher assigned
+        if (course.getTeacher() == null || course.getTeacher().getId() == null) {
+            throw new IllegalArgumentException("Kurs musi mieć przypisanego nauczyciela");
+        }
+
+        // Verify that the teacher exists in the database
+        if (!teacherRepository.existsById(course.getTeacher().getId())) {
+            throw new IllegalArgumentException("Wybrany nauczyciel nie istnieje");
+        }
+
         courseRepository.save(course);
     }
 
@@ -49,9 +64,9 @@ public class CourseService {
     }
 
     @Transactional
-    public void addStudentToCourse(Course courseToUpdate, Student student){
+    public void addStudentToCourse(Course courseToUpdate, Student student) {
         Optional<Course> course = courseRepository.findById(courseToUpdate.getId());
-        if (course.isPresent()){
+        if (course.isPresent()) {
             Course c = course.get();
             c.getStudents().add(student);
             courseRepository.save(c);
@@ -67,7 +82,7 @@ public class CourseService {
         return new ArrayList<>(course.getStudents());
     }
 
-    public List<StudentDto> getStudentsDtoFromCourse(Long courseId){
+    public List<StudentDto> getStudentsDtoFromCourse(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Course with given ID doesn't exist"));
         List<StudentDto> studentDtoList = new ArrayList<>();

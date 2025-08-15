@@ -31,7 +31,7 @@
         <tbody>
         <tr th:each="grade: ${grades}">
             <td th:text="${grade.getStudent().getName()}"></td>
-            <td th:text="${grade.getValue()}"></td>
+            <td th:text="${grade.getGradeValue()}"></td>
             <td th:text="${grade.getCourse().getName()}"></td>
             <td>
                 <a th:href="@{/grades/deleteGrade(gradeId=${grade.id})}" class="btn btn-danger ml-2">Delete</a>
